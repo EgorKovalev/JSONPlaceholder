@@ -3,13 +3,14 @@ using JSONPlaceholder.JsonObjects;
 using JSONPlaceholder.Requests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JSONPlaceholder.Tests
 {
     [TestClass]
     public class PostsTests
     {
-        [TestMethod]
+        [TestCategory("Posts"), TestMethod()]
         public void Get_Posts_List()
         {
             // arrange  
@@ -22,7 +23,7 @@ namespace JSONPlaceholder.Tests
             Assert.IsTrue(posts.Count > 0);
         }
 
-        [TestMethod]
+        [TestCategory("Posts"), TestMethod()]
         public void Get_Third_Post()
         {
             // arrange  
@@ -33,6 +34,19 @@ namespace JSONPlaceholder.Tests
 
             // assert  
             Assert.IsTrue(post.id == 3);
+        }
+
+        [TestCategory("Comments"), TestMethod()]
+        public void Get_Comment_For_First_Post()
+        {
+            // arrange  
+            var provider = new HttpProvider();
+
+            // act  
+            var comment = provider.ExecuteApiMethod<List<Comment>>(Comments.Get("1"));
+
+            // assert  
+            Assert.IsTrue(comment.Any(c => c.postId == 1));
         }
     }
 }

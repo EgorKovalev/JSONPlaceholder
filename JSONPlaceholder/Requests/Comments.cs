@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 
 namespace JSONPlaceholder.Requests
 {
-    class Comments
+    public class Comments
     {
+        public static HttpRequestMessage Get(string id)
+        {
+            return new HttpRequestMessage(HttpMethod.Get, "https://jsonplaceholder.typicode.com/comments?postId=" + id);
+        }
     }
 }
