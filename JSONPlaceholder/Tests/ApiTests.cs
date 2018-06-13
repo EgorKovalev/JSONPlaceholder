@@ -69,7 +69,23 @@ namespace JSONPlaceholder.Tests
             var uploadedPost = provider.ExecuteApiMethod<Post>(PostRequests.Create(post));
 
             // assert  
-            Assert.IsTrue(uploadedPost.id == 101);
+            Assert.IsTrue(uploadedPost.userId == post.userId 
+                && uploadedPost.body.Equals(post.body) 
+                &&uploadedPost.title.Equals(post.title));
+        }
+
+        [TestCategory("Posts"), TestCategory("HttpPost")]
+        [TestMethod]
+        public void Add_Post_Negative()
+        {
+            // arrange  
+            var provider = new HttpProvider();            
+
+            // act  
+            var uploadedPost = provider.ExecuteApiMethod<Post>(PostRequests.Create(null));
+
+            // assert  
+            Assert.IsTrue(true);
         }
     }
 }
